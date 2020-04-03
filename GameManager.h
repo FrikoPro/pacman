@@ -27,11 +27,13 @@ public:
     void update();
     void render();
     void clean();
+    enum Direction{LEFT, RIGHT, UP, DOWN, STOP};
 
 
 private:
 
     static GameManager *instance;
+    Direction direction;
     Uint32 frameStart;
     int frameTime;
     const int FPS = 60;

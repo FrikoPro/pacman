@@ -26,6 +26,7 @@ public:
     void setPreDirection(Direction direction);
 
     Direction getDirection();
+    Direction getPreDirection();
 
     bool checkRail(Direction direction);
 

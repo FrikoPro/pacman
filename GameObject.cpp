@@ -50,7 +50,7 @@ void GameObject::update()
         }
         pre_direction = STOP;
 
-    } else if(checkRail(pre_direction)) {
+    } else if (checkRail(pre_direction)) {
 
         switch (pre_direction) {
             case LEFT:
@@ -186,3 +186,9 @@ GameObject::Direction GameObject::getDirection()
 {
     return direction;
 }
+
+GameObject::Direction GameObject::getPreDirection()
+{
+    return pre_direction;
+}
+
