@@ -35,6 +35,8 @@ public:
     void moveDown();
     void moveUp();
 
+    virtual void move();
+
 protected:
     int xpos;
     int ypos;
@@ -45,7 +47,6 @@ protected:
     SDL_Rect srcRect, destRect;
     SDL_Renderer *renderer;
     std::vector<Rails> arrayOfRails;
-
 };
 
 

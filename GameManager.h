@@ -7,7 +7,7 @@
 
 #include "Screen.h"
 #include "Pacman.h"
-#include "GameObject.h"
+#include "Blinky.h"
 #include <vector>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
@@ -42,7 +42,7 @@ private:
 
     Direction direction;
     Pacman *pacman = Pacman::getInstance();
-    GameObject *blinky;
+    std::vector<GameObject*> npcs;
 
 
     GameManager();

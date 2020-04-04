@@ -8,5 +8,5 @@ PKG_SEARCH_MODULE(SDL2_IMAGE REQUIRED SDL2_image>=2.0.0)
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(pacman main.cpp Screen.cpp Screen.h GameManager.cpp GameManager.h GameObject.cpp GameObject.h Pacman.cpp Pacman.h Rails.cpp Rails.h Map.cpp Map.h)
+add_executable(pacman main.cpp Screen.cpp Screen.h GameManager.cpp GameManager.h GameObject.cpp GameObject.h Pacman.cpp Pacman.h Rails.cpp Rails.h Map.cpp Map.h Blinky.cpp Blinky.h)
 target_link_libraries(pacman ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})

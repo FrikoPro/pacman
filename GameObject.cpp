@@ -28,56 +28,17 @@ void GameObject::update()
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
 
+}
 
+void GameObject::move()
+{
 
-    if(xpos == 100 && ypos == 215 && direction == LEFT) {
+    if(xpos == 100 && ypos == 215) {
         xpos = 515;
-    } else if (xpos == 515 && ypos == 215 && direction == RIGHT) {
+    } else if (xpos == 515 && ypos == 215) {
         xpos = 100;
     }
 
-
-
-
-    if (checkRail(direction)) {
-
-        switch (direction) {
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            default:
-                break;
-        }
-        pre_direction = STOP;
-
-    } else if (checkRail(pre_direction)) {
-
-        switch (pre_direction) {
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            default:
-                break;
-        }
-    }
 }
 
 void GameObject::render()

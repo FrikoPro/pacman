@@ -13,9 +13,11 @@ Rails::~Rails()
 bool Rails::operator==(const Rails &obj1)
 {
     if (this->x1 == obj1.x1 && this->y1 == obj1.y1) {
-        if (this->x2 == obj1.x2 && this->y2 == obj1.y2) {
-            return true;
-        }
+        return true;
+    } else if (this->x2 == obj1.x2 && this->y2 == obj1.y2) {
+        return true;
+    } else if (this->x2 == obj1.x1 && this->y2 == obj1.y1) {
+        return true;
     }
     return false;
 }
