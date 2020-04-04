@@ -27,7 +27,7 @@ public:
     void update();
     void render();
     void clean();
-    enum Direction{LEFT, RIGHT, UP, DOWN, STOP};
+    enum Direction{};
 
 
 private:

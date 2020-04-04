@@ -39,11 +39,9 @@ protected:
     int xpos;
     int ypos;
 
-    std::vector<GameObject> npc;
-    GameObject *blinky;
     Direction direction;
     Direction pre_direction;
-    Rails currentRail;
+    Rails *currentRail;
     SDL_Texture *objTexture;
     SDL_Rect srcRect, destRect;
     SDL_Renderer *renderer;
