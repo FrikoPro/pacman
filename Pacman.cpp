@@ -21,7 +21,7 @@ void Pacman::deleteInstance()
     instance = nullptr;
 }
 
-Pacman::Pacman() : GameObject("../data/gfx/pacman.png",330, 339){}
+Pacman::Pacman() : GameObject("../data/gfx/pacman.png",330, 339) {}
 
 Pacman::~Pacman()
 {}

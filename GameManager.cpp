@@ -24,6 +24,8 @@ void GameManager::deleteInstance()
 GameManager::GameManager() : isRunning(true)
 {
     Map::getInstance();
+    blinky = new GameObject("../data/gfx/blinky_1.png", 280, 233);
+
 }
 
 GameManager::~GameManager()
@@ -88,6 +90,7 @@ void GameManager::update()
 {
 
     pacman->update();
+    blinky->update();
 }
 
 void GameManager::render()
@@ -95,6 +98,7 @@ void GameManager::render()
     SDL_RenderClear(Screen::renderer);
     Map::getInstance()->renderMap();
     pacman->render();
+    blinky->render();
     SDL_RenderPresent(Screen::renderer);
 }
 

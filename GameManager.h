@@ -6,8 +6,9 @@
 #define PACMAN_GAMEMANAGER_H
 
 #include "Screen.h"
-#include "GameObject.h"
 #include "Pacman.h"
+#include "GameObject.h"
+#include <vector>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
@@ -27,19 +28,23 @@ public:
     void update();
     void render();
     void clean();
-    enum Direction{LEFT, RIGHT, UP, DOWN, STOP};
+    enum Direction{};
 
 
 private:
 
     static GameManager *instance;
-    Direction direction;
+    bool isRunning;
     Uint32 frameStart;
     int frameTime;
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
+
+    Direction direction;
     Pacman *pacman = Pacman::getInstance();
-    bool isRunning;
+    GameObject *blinky;
+
+
     GameManager();
     ~GameManager();
 
