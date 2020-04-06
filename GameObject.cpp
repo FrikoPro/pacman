@@ -3,7 +3,7 @@
 //
 
 #include "GameObject.h"
-#include "Screen.h"
+#include "Map.h"
 
 GameObject::GameObject(const char *path, SDL_Point pos) : objTexture(Screen::loadImage(path, 255)),
                                                           renderer(Screen::renderer), direction(LEFT),
@@ -57,7 +57,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (pos.y >= rail.start.y && pos.y < rail.end.y) {
                     if (pos.x == rail.start.x) {
-                        currentRail = rail;
+                        currentRail = &rail;
                         return true;
                     }
                 }
@@ -67,7 +67,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (pos.y > rail.start.y && pos.y <= rail.end.y) {
                     if (pos.x == rail.start.x) {
-                        currentRail = rail;
+                        currentRail = &rail;
                         return true;
                     }
                 }
@@ -77,7 +77,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (pos.x > rail.start.x && pos.x <= rail.end.x) {
                     if (pos.y == rail.start.y) {
-                        currentRail = rail;
+                        currentRail = &rail;
                         return true;
                     }
                 }
@@ -87,7 +87,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (pos.x >= rail.start.x && pos.x < rail.end.x) {
                     if (pos.y == rail.start.y) {
-                        currentRail = rail;
+                        currentRail = &rail;
                         return true;
                     }
                 }
@@ -101,8 +101,8 @@ bool GameObject::checkRail(Direction direction)
 void GameObject::moveUp()
 {
 
-    if (pos.y - 2 <= currentRail.start.y) {
-        pos.y = currentRail.start.y;
+    if (pos.y - 2 <= currentRail->start.y) {
+        pos.y = currentRail->start.y;
     } else {
         pos.y -= 2;
     }
@@ -112,8 +112,8 @@ void GameObject::moveUp()
 void GameObject::moveDown()
 {
 
-    if (pos.y + 2 >= currentRail.end.y) {
-        pos.y = currentRail.end.y;
+    if (pos.y + 2 >= currentRail->end.y) {
+        pos.y = currentRail->end.y;
     } else {
         pos.y += 2;
     }
@@ -124,8 +124,8 @@ void GameObject::moveRight()
 {
 
 
-    if (pos.x + 2 >= currentRail.end.x) {
-        pos.x = currentRail.end.x;
+    if (pos.x + 2 >= currentRail->end.x) {
+        pos.x = currentRail->end.x;
     } else {
         pos.x += 2;
     }
@@ -135,8 +135,8 @@ void GameObject::moveRight()
 void GameObject::moveLeft()
 {
 
-    if (pos.x - 2 <= currentRail.start.x) {
-        pos.x = currentRail.start.x;
+    if (pos.x - 2 <= currentRail->start.x) {
+        pos.x = currentRail->start.x;
     } else {
         pos.x -= 2;
     }

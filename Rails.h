@@ -7,7 +7,10 @@
 
 
 #include <SDL_rect.h>
+#include <vector>
 #include "SDL_utility.h"
+#include "Pill.h"
+
 
 class Rails {
 
@@ -21,7 +24,12 @@ public:
     SDL_Point start;
     SDL_Point end;
 
+    std::vector<Pill*> pills;
+
+
+
 };
+
 
 
 #endif //PACMAN_RAILS_H

@@ -3,7 +3,8 @@
 //
 
 #include "GameManager.h"
-#include "Map.h"
+#include "Blinky.h"
+
 
 GameManager *GameManager::instance = nullptr;
 
@@ -26,7 +27,7 @@ GameManager::GameManager() : isRunning(true)
     Map::getInstance();
     npcs.push_back(pacman);
     npcs.push_back(Blinky::getInstance());
-
+    Map::getInstance()->initPills();
 }
 
 GameManager::~GameManager()
@@ -94,15 +95,24 @@ void GameManager::update()
         player->update();
         player->move();
     }
+
 }
 
 void GameManager::render()
 {
     SDL_RenderClear(Screen::renderer);
     Map::getInstance()->renderMap();
+    for (Rails &rail : Map::getInstance()->getRails()) {
+        if (!rail.pills.empty()) {
+            for(Pill *pill : rail.pills) {
+                pill->render();
+            }
+        }
+    }
     for (auto &player : npcs) {
         player->render();
     }
+
     SDL_RenderPresent(Screen::renderer);
 }
 

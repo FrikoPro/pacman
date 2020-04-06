@@ -4,6 +4,7 @@
 
 #include "Blinky.h"
 
+
 Blinky *Blinky::instance = nullptr;
 
 Blinky::Blinky() : GameObject("../data/gfx/blinky_1.png", {280, 222})

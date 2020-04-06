@@ -18,6 +18,7 @@ public:
     static void deleteInstance();
     void renderMap();
     std::vector<Rails> getRails();
+    void initPills();
 
 private:
     Map();
@@ -25,6 +26,7 @@ private:
     static Map *instance;
     SDL_Texture *txMap;
     std::vector<Rails> arrayOfRails;
+    std::vector<Rails> castleRails;
 
 
 };

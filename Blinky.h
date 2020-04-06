@@ -7,6 +7,7 @@
 
 #include "GameObject.h"
 #include "Pacman.h"
+#include "Rails.h"
 #include <set>
 #include <algorithm>
 

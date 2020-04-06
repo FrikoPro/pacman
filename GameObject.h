@@ -7,7 +7,9 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
-#include "Map.h"
+#include "Screen.h"
+
+class Rails;
 
 class GameObject {
 
@@ -41,7 +43,7 @@ protected:
     SDL_Point pos;
     Direction direction;
     Direction pre_direction;
-    Rails currentRail;
+    Rails *currentRail;
     SDL_Texture *objTexture;
     SDL_Rect srcRect, destRect;
     SDL_Renderer *renderer;
