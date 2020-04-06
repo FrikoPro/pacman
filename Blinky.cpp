@@ -6,7 +6,7 @@
 
 Blinky *Blinky::instance = nullptr;
 
-Blinky::Blinky() : GameObject("../data/gfx/blinky_1.png", 280, 222)
+Blinky::Blinky() : GameObject("../data/gfx/blinky_1.png", {280, 222})
 {
     direction = RIGHT;
     checkRail(direction);
@@ -42,24 +42,20 @@ inline bool operator==(SDL_Point const *obj1, SDL_Point const &obj2)
 
 void Blinky::move()
 {
-    GameObject::move();
+
     SDL_Point pacmanPos = Pacman::getInstance()->getPosition();
     if (path.empty()) {
-        path = findPath(position, pacmanPos);
+        path = findPath(pos, pacmanPos);
         if (path.empty())
             return;
-        goal = path.back();
     }
-
-    if (&position == goal)
-        path.pop_back();
 
     if (!path.empty()) {
         goal = path.back();
 
 
-        if (xpos == goal.x) {
-            if (ypos < goal.y) {
+        if (pos.x == goal.x) {
+            if (pos.y < goal.y) {
                 direction = DOWN;
                 checkRail(direction);
                 moveDown();
@@ -68,8 +64,8 @@ void Blinky::move()
                 checkRail(direction);
                 moveUp();
             }
-        } else if (ypos == goal.y) {
-            if (xpos > goal.x) {
+        } else if (pos.y == goal.y) {
+            if (pos.x > goal.x) {
                 direction = LEFT;
                 checkRail(direction);
                 moveLeft();
@@ -83,7 +79,10 @@ void Blinky::move()
         std::cout << "Not finding point" << std::endl;
     }
 
+    if (&pos == goal)
+        path.pop_back();
 
+    GameObject::move();
 }
 
 bool Blinky::isValidPoint(SDL_Point point)

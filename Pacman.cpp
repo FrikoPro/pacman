@@ -21,7 +21,8 @@ void Pacman::deleteInstance()
     instance = nullptr;
 }
 
-Pacman::Pacman() : GameObject("../data/gfx/pacman.png",330, 339) {}
+Pacman::Pacman() : GameObject("../data/gfx/pacman.png", {515, 215})
+{}
 
 Pacman::~Pacman()
 {
@@ -75,7 +76,7 @@ void Pacman::move()
 
 SDL_Point Pacman::getPosition()
 {
-    return position;
+    return pos;
 }
 
 

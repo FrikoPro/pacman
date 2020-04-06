@@ -12,7 +12,7 @@
 class GameObject {
 
 public:
-    GameObject(const char *path, int x, int y);
+    GameObject(const char *path, SDL_Point pos);
 
     virtual ~GameObject();
 
@@ -38,9 +38,7 @@ public:
     virtual void move();
 
 protected:
-    int xpos;
-    int ypos;
-    SDL_Point position;
+    SDL_Point pos;
     Direction direction;
     Direction pre_direction;
     Rails currentRail;
