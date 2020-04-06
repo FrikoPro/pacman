@@ -35,18 +35,19 @@ public:
     void moveDown();
     void moveUp();
 
+    virtual void move();
+
 protected:
     int xpos;
     int ypos;
-
+    SDL_Point position;
     Direction direction;
     Direction pre_direction;
-    Rails *currentRail;
+    Rails currentRail;
     SDL_Texture *objTexture;
     SDL_Rect srcRect, destRect;
     SDL_Renderer *renderer;
     std::vector<Rails> arrayOfRails;
-
 };
 
 

@@ -99,10 +99,10 @@ Map::Map()
     arrayOfRails.emplace_back(480, 380, 480, 421);
 
     // ghost castle
-    arrayOfRails.emplace_back(280, 222, 309, 222);  // horizontal, the left one - 1 pixel too short, so it is a one-way outwards
-    arrayOfRails.emplace_back(311, 222, 340, 222);  // horizontal, the right one - 1 pixel too short, so it is a one-way outwards
+    arrayOfRails.emplace_back(280, 222, 310, 222);  // horizontal, the left one - 1 pixel too short, so it is a one-way outwards
+    arrayOfRails.emplace_back(310, 222, 340, 222);  // horizontal, the right one - 1 pixel too short, so it is a one-way outwards
     arrayOfRails.emplace_back(280, 200, 280, 222);  // vertical, the left one
-    arrayOfRails.emplace_back(310, 175, 310,222);  // vertical, the middle (long) one - 1 pixel too short, so it usually is a one-way outwards
+    arrayOfRails.emplace_back(310, 174, 310,222);  // vertical, the middle (long) one - 1 pixel too short, so it usually is a one-way outwards
     arrayOfRails.emplace_back(340, 200, 340, 222);  // vertical, the right one
 
 }

@@ -23,61 +23,24 @@ void GameObject::update()
     srcRect.x = 0;
     srcRect.y = 0;
 
+    position = {xpos, ypos};
+
     destRect.x = xpos;
     destRect.y = ypos;
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
 
+}
 
+void GameObject::move()
+{
 
-    if(xpos == 100 && ypos == 215 && direction == LEFT) {
+    if(xpos == 100 && ypos == 215) {
         xpos = 515;
-    } else if (xpos == 515 && ypos == 215 && direction == RIGHT) {
+    } else if (xpos == 515 && ypos == 215) {
         xpos = 100;
     }
 
-
-
-
-    if (checkRail(direction)) {
-
-        switch (direction) {
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            default:
-                break;
-        }
-        pre_direction = STOP;
-
-    } else if (checkRail(pre_direction)) {
-
-        switch (pre_direction) {
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            default:
-                break;
-        }
-    }
 }
 
 void GameObject::render()
@@ -95,7 +58,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (ypos >= rail.y1 && ypos < rail.y2) {
                     if (xpos == rail.x1) {
-                        currentRail = &rail;
+                        currentRail = rail;
                         return true;
                     }
                 }
@@ -105,7 +68,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (ypos > rail.y1 && ypos <= rail.y2) {
                     if (xpos == rail.x1) {
-                        currentRail = &rail;
+                        currentRail = rail;
                         return true;
                     }
                 }
@@ -115,7 +78,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (xpos > rail.x1 && xpos <= rail.x2) {
                     if (ypos == rail.y1) {
-                        currentRail = &rail;
+                        currentRail = rail;
                         return true;
                     }
                 }
@@ -125,7 +88,7 @@ bool GameObject::checkRail(Direction direction)
             for (Rails rail : arrayOfRails) {
                 if (xpos >= rail.x1 && xpos < rail.x2) {
                     if (ypos == rail.y1) {
-                        currentRail = &rail;
+                        currentRail = rail;
                         return true;
                     }
                 }
@@ -139,8 +102,8 @@ bool GameObject::checkRail(Direction direction)
 void GameObject::moveUp()
 {
 
-    if (ypos - 2 <= currentRail->y1) {
-        ypos = currentRail->y1;
+    if (ypos - 2 <= currentRail.y1) {
+        ypos = currentRail.y1;
     } else {
         ypos -= 2;
     }
@@ -150,8 +113,8 @@ void GameObject::moveUp()
 void GameObject::moveDown()
 {
 
-    if (ypos + 2 >= currentRail->y2) {
-        ypos = currentRail->y2;
+    if (ypos + 2 >= currentRail.y2) {
+        ypos = currentRail.y2;
     } else {
         ypos += 2;
     }
@@ -162,8 +125,8 @@ void GameObject::moveRight()
 {
 
 
-    if (xpos + 2 >= currentRail->x2) {
-        xpos = currentRail->x2;
+    if (xpos + 2 >= currentRail.x2) {
+        xpos = currentRail.x2;
     } else {
         xpos += 2;
     }
@@ -173,8 +136,8 @@ void GameObject::moveRight()
 void GameObject::moveLeft()
 {
 
-    if (xpos - 2 <= currentRail->x1) {
-        xpos = currentRail->x1;
+    if (xpos - 2 <= currentRail.x1) {
+        xpos = currentRail.x1;
     } else {
         xpos -= 2;
     }
@@ -200,4 +163,5 @@ GameObject::Direction GameObject::getPreDirection()
 {
     return pre_direction;
 }
+
 

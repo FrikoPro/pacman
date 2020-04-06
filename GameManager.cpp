@@ -24,6 +24,9 @@ void GameManager::deleteInstance()
 GameManager::GameManager() : isRunning(true)
 {
     Map::getInstance();
+    npcs.push_back(pacman);
+    npcs.push_back(Blinky::getInstance());
+
 }
 
 GameManager::~GameManager()
@@ -77,7 +80,7 @@ void GameManager::handleEvents()
             } else if (keys[SDL_SCANCODE_S] != 0) {
                 pacman->setDirection(GameObject::DOWN);
             }
-            if(pacman->getDirection() == pacman->getPreDirection()) {
+            if (pacman->getDirection() == pacman->getPreDirection()) {
                 pacman->setPreDirection(static_cast<GameObject::Direction>(direction));
             }
         }
@@ -87,14 +90,19 @@ void GameManager::handleEvents()
 void GameManager::update()
 {
 
-    pacman->update();
+    for (auto &player : npcs) {
+        player->update();
+        player->move();
+    }
 }
 
 void GameManager::render()
 {
     SDL_RenderClear(Screen::renderer);
     Map::getInstance()->renderMap();
-    pacman->render();
+    for (auto &player : npcs) {
+        player->render();
+    }
     SDL_RenderPresent(Screen::renderer);
 }
 

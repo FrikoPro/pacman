@@ -10,6 +10,7 @@ class Rails {
 
 public:
     Rails(int x1, int y1, int x2, int y2);
+    Rails();
     ~Rails();
 
     bool operator==(const Rails &obj1);
