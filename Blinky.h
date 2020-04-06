@@ -7,6 +7,8 @@
 
 #include "GameObject.h"
 #include "Pacman.h"
+#include <set>
+#include <algorithm>
 
 
 class Blinky : public GameObject {
@@ -16,16 +18,20 @@ public:
     static void deleteInstance();
 
     void move();
-    void findPath();
-    void calculatePath(std::vector<Rails*> &stack, std::vector<Rails*> &visited);
-    bool foundRail(Rails *rail);
-
+    std::vector<SDL_Point> findPath(SDL_Point start, SDL_Point dest);
+    void calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point*> &alreadyVisted, SDL_Point current, SDL_Point dest);
+    std::vector<SDL_Point> getAdjacents(SDL_Point point);
+    bool isPointIn(std::set<SDL_Point*> alreadyVisted, SDL_Point point);
+    bool isPathTo(std::vector<SDL_Point> &stack, SDL_Point dest);
+    bool isValidPoint(SDL_Point point);
 private:
     Blinky();
     ~Blinky();
 
     static Blinky *instance;
-    SDL_Point position {xpos, ypos};
+    std::vector<SDL_Point> path;
+    SDL_Point goal = {0, 0};
+
 
 };
 

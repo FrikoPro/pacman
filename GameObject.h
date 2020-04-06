@@ -40,9 +40,10 @@ public:
 protected:
     int xpos;
     int ypos;
+    SDL_Point position;
     Direction direction;
     Direction pre_direction;
-    Rails *currentRail;
+    Rails currentRail;
     SDL_Texture *objTexture;
     SDL_Rect srcRect, destRect;
     SDL_Renderer *renderer;

@@ -15,7 +15,7 @@ public:
     static void deleteInstance();
     void move();
     SDL_Point getPosition();
-    SDL_Point position {xpos, ypos};
+
 
 
 private:
