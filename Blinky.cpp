@@ -32,19 +32,12 @@ void Blinky::deleteInstance()
     instance = nullptr;
 }
 
-inline bool operator==(SDL_Point const *obj1, SDL_Point const &obj2)
-{
-    if (obj1->x == obj2.x && obj1->y == obj2.y) {
-        return true;
-    } else
-        return false;
-}
-
 void Blinky::move()
 {
 
     SDL_Point pacmanPos = Pacman::getInstance()->getPosition();
     if (path.empty()) {
+        path.clear();
         path = findPath(pos, pacmanPos);
         if (path.empty())
             return;
@@ -88,8 +81,8 @@ void Blinky::move()
 bool Blinky::isValidPoint(SDL_Point point)
 {
     for (Rails rail : arrayOfRails) {
-        if ((rail.x1 == point.x && rail.y1 == point.y) ||
-            (rail.x2 == point.x && rail.y2 == point.y))
+        if ((&point == rail.start) ||
+            (&point == rail.end))
             return true;
     }
     return false;
@@ -104,7 +97,7 @@ std::vector<SDL_Point> Blinky::findPath(SDL_Point start, SDL_Point dest)
     if (!isValidPoint(start) || !isValidPoint(dest))
         return stack;
 
-    if (start.x == dest.x && start.y == dest.y) {
+    if (&start == dest) {
         return stack;
     }
 
@@ -169,10 +162,10 @@ std::vector<SDL_Point> Blinky::getAdjacents(SDL_Point point)
 {
     std::vector<SDL_Point> points;
     for (Rails rail : arrayOfRails) {
-        if (point.x == rail.x1 && point.y == rail.y1) {
-            points.emplace_back(SDL_Point{rail.x2, rail.y2});
-        } else if (point.x == rail.x2 && point.y == rail.y2) {
-            points.emplace_back(SDL_Point{rail.x1, rail.y1});
+        if (&point == rail.start) {
+            points.emplace_back(rail.end);
+        } else if (&point == rail.end) {
+            points.emplace_back(rail.start);
         }
     }
 

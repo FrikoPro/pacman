@@ -6,19 +6,20 @@
 #define PACMAN_RAILS_H
 
 
+#include <SDL_rect.h>
+#include "SDL_utility.h"
+
 class Rails {
 
 public:
-    Rails(int x1, int y1, int x2, int y2);
+    Rails(SDL_Point start, SDL_Point end);
     Rails();
     ~Rails();
 
     bool operator==(const Rails &obj1);
 
-    int x1;
-    int y1;
-    int x2;
-    int y2;
+    SDL_Point start;
+    SDL_Point end;
 
 };
 
