@@ -135,6 +135,7 @@ Map::Map()
 Map::~Map()
 {
     deleteInstance();
+    deleteInstance();
 }
 
 Map *Map::getInstance()
@@ -152,6 +153,7 @@ void Map::initPills() {
         for(Rails castleRails : castleRails) {
             if(castleRails == rail) {
                 nextRail = true;
+                break;
             }
         }
 

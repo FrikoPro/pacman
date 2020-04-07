@@ -10,6 +10,7 @@
 #include "Rails.h"
 #include <set>
 #include <algorithm>
+#include "SDL_utility.h"
 
 
 class Blinky : public GameObject {
@@ -19,11 +20,12 @@ public:
     static void deleteInstance();
 
     void move();
-    std::vector<SDL_Point> findPath(SDL_Point start, SDL_Point dest);
-    void calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point*> &alreadyVisted, SDL_Point current, SDL_Point dest);
+    std::vector<SDL_Point> findPath(SDL_Point start, SDL_Point dest, Rails *rail);
+    void calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &alreadyVisted, SDL_Point current,
+                       Rails rail);
     std::vector<SDL_Point> getAdjacents(SDL_Point point);
     bool isPointIn(std::set<SDL_Point*> alreadyVisted, SDL_Point point);
-    bool isPathTo(std::vector<SDL_Point> &stack, SDL_Point dest);
+    bool isPathTo(std::vector<SDL_Point> &stack, Rails rail);
     bool isValidPoint(SDL_Point point);
 private:
     Blinky();
@@ -31,7 +33,6 @@ private:
 
     static Blinky *instance;
     std::vector<SDL_Point> path;
-    SDL_Point goal = {0, 0};
 
 
 };

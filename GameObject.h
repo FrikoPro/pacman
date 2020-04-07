@@ -24,14 +24,6 @@ public:
 
     enum Direction {LEFT, RIGHT, UP, DOWN, STOP};
 
-    void setDirection(Direction direction);
-    void setPreDirection(Direction direction);
-
-    Direction getDirection();
-    Direction getPreDirection();
-
-    bool checkRail(Direction direction);
-
     void moveLeft();
     void moveRight();
     void moveDown();
@@ -41,13 +33,14 @@ public:
 
 protected:
     SDL_Point pos;
-    Direction direction;
-    Direction pre_direction;
-    Rails *currentRail;
+    SDL_Point goal;
     SDL_Texture *objTexture;
     SDL_Rect srcRect, destRect;
     SDL_Renderer *renderer;
     std::vector<Rails> arrayOfRails;
+    SDL_Point teleportRight = SDL_Point{515, 215};
+    SDL_Point teleportLeft = SDL_Point{100, 215};
+    Direction direction;
 };
 
 

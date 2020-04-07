@@ -9,8 +9,6 @@ Blinky *Blinky::instance = nullptr;
 
 Blinky::Blinky() : GameObject("../data/gfx/blinky_1.png", {280, 222})
 {
-    direction = RIGHT;
-    checkRail(direction);
 
 }
 
@@ -36,36 +34,37 @@ void Blinky::deleteInstance()
 void Blinky::move()
 {
 
+    GameObject::move();
     SDL_Point pacmanPos = Pacman::getInstance()->getPosition();
+    if (&pacmanPos == pos) {
+        path.clear();
+        return;
+    }
+    Rails *temp = Pacman::getInstance()->getCurrentRail();
+    Rails *pacmanRail = new Rails(temp->start, temp->end);
     if (path.empty()) {
         path.clear();
-        path = findPath(pos, pacmanPos);
+        path = findPath(pos, pacmanPos, pacmanRail);
         if (path.empty())
             return;
     }
 
     if (!path.empty()) {
         goal = path.back();
-
-
         if (pos.x == goal.x) {
             if (pos.y < goal.y) {
                 direction = DOWN;
-                checkRail(direction);
                 moveDown();
             } else {
                 direction = UP;
-                checkRail(direction);
                 moveUp();
             }
         } else if (pos.y == goal.y) {
             if (pos.x > goal.x) {
                 direction = LEFT;
-                checkRail(direction);
                 moveLeft();
             } else {
                 direction = RIGHT;
-                checkRail(direction);
                 moveRight();
             }
         }
@@ -75,21 +74,18 @@ void Blinky::move()
 
     if (&pos == goal)
         path.pop_back();
-
-    GameObject::move();
 }
 
 bool Blinky::isValidPoint(SDL_Point point)
 {
     for (Rails rail : arrayOfRails) {
-        if ((&point == rail.start) ||
-            (&point == rail.end))
+        if (rail == point)
             return true;
     }
     return false;
 }
 
-std::vector<SDL_Point> Blinky::findPath(SDL_Point start, SDL_Point dest)
+std::vector<SDL_Point> Blinky::findPath(SDL_Point start, SDL_Point dest, Rails *rail)
 {
 
     std::vector<SDL_Point> stack;
@@ -98,19 +94,22 @@ std::vector<SDL_Point> Blinky::findPath(SDL_Point start, SDL_Point dest)
     if (!isValidPoint(start) || !isValidPoint(dest))
         return stack;
 
-    if (&start == dest) {
+    if (*rail == start) {
+        stack.emplace_back(dest);
         return stack;
     }
 
 
-    calculatePath(stack, alreadyVisted, start, dest);
+    calculatePath(stack, alreadyVisted, start, *rail);
 
-    if (isPathTo(stack, dest)) {
+    if (isPathTo(stack, *rail)) {
+        stack.emplace_back(dest);
         std::reverse(stack.begin(), stack.end());
         stack.pop_back();
         return stack;
     }
 
+    stack.clear();
     return stack;
 
 }
@@ -126,12 +125,12 @@ bool Blinky::isPointIn(std::set<SDL_Point *> alreadyVisted, SDL_Point point)
 }
 
 void Blinky::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &alreadyVisted, SDL_Point current,
-                           SDL_Point dest)
+                           Rails rail)
 {
     stack.emplace_back(current);
     alreadyVisted.insert(&current);
 
-    if (isPathTo(stack, dest))
+    if (isPathTo(stack, rail))
         return;
 
     for (SDL_Point &adjacent : getAdjacents(current)) {
@@ -139,9 +138,9 @@ void Blinky::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> 
             continue;
         }
 
-        calculatePath(stack, alreadyVisted, adjacent, dest);
+        calculatePath(stack, alreadyVisted, adjacent, rail);
 
-        if (!isPathTo(stack, dest)) {
+        if (!isPathTo(stack, rail)) {
             stack.pop_back();
         } else {
             return;
@@ -149,10 +148,10 @@ void Blinky::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> 
     }
 }
 
-bool Blinky::isPathTo(std::vector<SDL_Point> &stack, SDL_Point dest)
+bool Blinky::isPathTo(std::vector<SDL_Point> &stack, Rails rail)
 {
     if (!stack.empty()) {
-        if (stack.back().x == dest.x && stack.back().y == dest.y)
+        if (rail == stack.back())
             return true;
     }
     return false;
@@ -162,11 +161,19 @@ bool Blinky::isPathTo(std::vector<SDL_Point> &stack, SDL_Point dest)
 std::vector<SDL_Point> Blinky::getAdjacents(SDL_Point point)
 {
     std::vector<SDL_Point> points;
+    if (&point == teleportRight) {
+        points.emplace_back(SDL_Point{207, 215});
+    } else if (&point == teleportLeft) {
+        points.emplace_back(SDL_Point{412, 215});
+    }
+
     for (Rails rail : arrayOfRails) {
         if (&point == rail.start) {
             points.emplace_back(rail.end);
         } else if (&point == rail.end) {
             points.emplace_back(rail.start);
+        } else if (rail == point) {
+            points.emplace_back(rail.end);
         }
     }
 

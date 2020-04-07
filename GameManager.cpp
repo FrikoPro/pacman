@@ -73,16 +73,16 @@ void GameManager::handleEvents()
             } else if (SDL_HasEvent(SDL_QUIT)) {
                 isRunning = false;
             } else if (keys[SDL_SCANCODE_D] != 0) {
-                pacman->setDirection(GameObject::RIGHT);
+                pacman->setDirection(Pacman::RIGHT);
             } else if (keys[SDL_SCANCODE_W] != 0) {
-                pacman->setDirection(GameObject::UP);
+                pacman->setDirection(Pacman::UP);
             } else if (keys[SDL_SCANCODE_A] != 0) {
-                pacman->setDirection(GameObject::LEFT);
+                pacman->setDirection(Pacman::LEFT);
             } else if (keys[SDL_SCANCODE_S] != 0) {
-                pacman->setDirection(GameObject::DOWN);
+                pacman->setDirection(Pacman::DOWN);
             }
             if (pacman->getDirection() == pacman->getPreDirection()) {
-                pacman->setPreDirection(static_cast<GameObject::Direction>(direction));
+                pacman->setPreDirection(static_cast<Pacman::Direction>(direction));
             }
         }
     }

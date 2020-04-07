@@ -21,3 +21,9 @@ bool Rails::operator==(const Rails &obj1)
     }
     return false;
 }
+
+bool Rails::operator==(const SDL_Point &point)
+{
+    return (point.x >= this->start.x && point.x <= this->end.x) &&
+    point.y >= this->start.y && point.y <= this->end.y;
+}
