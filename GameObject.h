@@ -7,7 +7,10 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
+#include <set>
+#include <algorithm>
 #include "Screen.h"
+
 
 class Rails;
 
@@ -31,6 +34,14 @@ public:
 
     virtual void move();
 
+    std::vector<SDL_Point> findPath(SDL_Point start, SDL_Point dest, Rails *rail);
+    void calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &alreadyVisted, SDL_Point current,
+                       Rails rail);
+    std::vector<SDL_Point> getAdjacents(SDL_Point point);
+    bool isPointIn(std::set<SDL_Point*> alreadyVisted, SDL_Point point);
+    bool isPathTo(std::vector<SDL_Point> &stack, Rails rail);
+    bool isValidPoint(SDL_Point point);
+
 protected:
     SDL_Point pos;
     SDL_Point goal;
@@ -40,7 +51,7 @@ protected:
     std::vector<Rails> arrayOfRails;
     SDL_Point teleportRight = SDL_Point{515, 215};
     SDL_Point teleportLeft = SDL_Point{100, 215};
-    Direction direction;
+    std::vector<SDL_Point> path;
 };
 
 

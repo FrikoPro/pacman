@@ -33,8 +33,6 @@ Pacman::~Pacman()
 
 void Pacman::move()
 {
-    GameObject::move();
-
     if (checkRail(direction)) {
 
         switch (direction) {

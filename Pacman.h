@@ -38,6 +38,7 @@ private:
     static Pacman *instance;
     Direction pre_direction;
     Rails *currentRail;
+    Direction direction;
 
     Pacman();
     ~Pacman();
