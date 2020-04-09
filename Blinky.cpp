@@ -7,7 +7,7 @@
 
 Blinky *Blinky::instance = nullptr;
 
-Blinky::Blinky() : GameObject("../data/gfx/blinky_1.png", {280, 222})
+Blinky::Blinky() : Npc("../data/gfx/blinky_1.png", {280, 222})
 {
 
 }
@@ -31,5 +31,9 @@ void Blinky::deleteInstance()
     instance = nullptr;
 }
 
-
+void Blinky::move()
+{
+    destination = Pacman::getInstance()->getPosition();
+    Npc::move();
+}
 

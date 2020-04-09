@@ -7,6 +7,7 @@
 
 #include "GameObject.h"
 #include "Rails.h"
+#include "Map.h"
 
 class Pacman : public GameObject {
 
@@ -17,6 +18,8 @@ public:
     void move();
     SDL_Point getPosition();
     Rails *getCurrentRail();
+
+    enum Direction {LEFT, RIGHT, UP, DOWN, STOP};
 
     void setDirection(Direction direction);
     void setPreDirection(Direction direction);

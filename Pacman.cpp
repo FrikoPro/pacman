@@ -22,9 +22,11 @@ void Pacman::deleteInstance()
     instance = nullptr;
 }
 
-Pacman::Pacman() : pre_direction(STOP),
+Pacman::Pacman() : pre_direction(STOP), direction(LEFT),
                    GameObject("../data/gfx/pacman.png", {330, 339})
-{}
+{
+
+}
 
 Pacman::~Pacman()
 {

@@ -221,7 +221,6 @@ void Map::initPills()
             }
         }
     }
-
 }
 
 void Map::deleteInstance()

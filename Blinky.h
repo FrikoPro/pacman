@@ -5,15 +5,18 @@
 #ifndef PACMAN_BLINKY_H
 #define PACMAN_BLINKY_H
 
-#include "GameObject.h"
+#include "Npc.h"
+#include "Pacman.h"
 
 
 
-class Blinky : public GameObject {
+class Blinky : public Npc {
 
 public:
     static Blinky *getInstance();
     static void deleteInstance();
+
+    void move();
 
 private:
     Blinky();
