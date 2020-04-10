@@ -18,5 +18,10 @@ Pill::Pill(SDL_Point pos) : GameObject("../data/gfx/pille.png", pos) {
     destRect.h = srcRect.h;
 }
 
-Pill::~Pill()
-{}
+Pill::~Pill() {}
+
+SDL_Point Pill::getPos()
+{
+    SDL_Point pos = this->pos;
+    return pos;
+}

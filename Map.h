@@ -10,6 +10,7 @@
 #include <vector>
 #include "Rails.h"
 #include "Screen.h"
+#include "SDL_utility.h"
 
 class Map {
 
