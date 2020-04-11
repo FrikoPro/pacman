@@ -133,8 +133,6 @@ Map::Map() {
 }
 
 Map::~Map() {
-    deleteInstance();
-    deleteInstance();
 }
 
 Map *Map::getInstance() {
@@ -146,8 +144,58 @@ Map *Map::getInstance() {
 
 void Map::initPills() {
 
+    double initDistance = 0;
+    SDL_Point start = {138, 37};
 
-    for (Rails &rail : arrayOfRails) {
+    for (Rails rail : arrayOfRails) {
+        bool nextRail = false;
+        for (Rails castleRails : castleRails) {
+            if (castleRails == rail) {
+                nextRail = true;
+                break;
+            }
+        }
+
+        if (nextRail == true)
+            continue;
+        if (rail.start.y == rail.end.y) {
+            if (&rail.start == start) {
+                initDistance += abs(rail.start.x - rail.end.x);
+                start = rail.end;
+            } else {
+                int maxPills = round(initDistance / 15);
+                int spacing = 10;
+                int distance = initDistance;
+                for (int pill = 0; pill < maxPills; pill++) {
+                    pills.emplace_back(new Pill({start.x - distance + spacing, start.y + 10}));
+                    spacing += 15;
+                }
+                if (rail.start.y == rail.end.y)
+                    initDistance = abs(rail.start.x - rail.end.x);
+                else
+                    initDistance = abs(rail.start.y - rail.end.y);
+                start = rail.end;
+            }
+        } else if (rail.start.x == rail.end.x) {
+            if (&rail.start == start) {
+                initDistance += abs(rail.start.y - rail.end.y);
+                start = rail.end;
+            } else {
+                initDistance - 15;
+                int maxPills = round(initDistance / 15);
+                int spacing = 25;
+                int distance = initDistance;
+                for (int pill = 0; pill < maxPills; pill++) {
+                    pills.emplace_back(new Pill({start.x + 10, start.y - distance + spacing}));
+                    spacing += 15;
+                }
+                initDistance = abs(rail.start.y - rail.end.y);
+                start = rail.end;
+            }
+        }
+    }
+
+    /*7for (Rails &rail : arrayOfRails) {
         bool nextRail = false;
         for (Rails castleRails : castleRails) {
             if (castleRails == rail) {
@@ -237,7 +285,7 @@ void Map::initPills() {
         } else if(&rail.start == SDL_Point{330, 380} && &rail.end == SDL_Point{371, 380}) {
             rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         }
-    };
+    }*/
 }
 
 void Map::deleteInstance() {
@@ -249,6 +297,11 @@ void Map::deleteInstance() {
 
 std::vector<Rails> Map::getRails() {
     return arrayOfRails;
+}
+
+std::vector<Pill*> Map::getPills()
+{
+    return pills;
 }
 
 void Map::renderMap() {

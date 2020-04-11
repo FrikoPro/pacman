@@ -25,9 +25,12 @@ void GameManager::deleteInstance()
 GameManager::GameManager() : isRunning(true)
 {
     Map::getInstance();
-    npcs.push_back(pacman);
-    npcs.push_back(Blinky::getInstance());
     Map::getInstance()->initPills();
+    for(Pill *pill : Map::getInstance()->getPills()) {
+        gameObjects.emplace_back(pill);
+    }
+    gameObjects.emplace_back(pacman);
+    gameObjects.emplace_back(Blinky::getInstance());
 }
 
 GameManager::~GameManager()
@@ -91,9 +94,9 @@ void GameManager::handleEvents()
 void GameManager::update()
 {
 
-    for (auto &player : npcs) {
-        player->update();
-        player->move();
+    for (auto &object : gameObjects) {
+        object->update();
+        object->move();
     }
 
 }
@@ -102,14 +105,7 @@ void GameManager::render()
 {
     SDL_RenderClear(Screen::renderer);
     Map::getInstance()->renderMap();
-    for (Rails &rail : Map::getInstance()->getRails()) {
-        if (!rail.pills.empty()) {
-            for(Pill *pill : rail.pills) {
-                pill->render();
-            }
-        }
-    }
-    for (auto &player : npcs) {
+    for (auto &player : gameObjects) {
         player->render();
     }
 
@@ -120,7 +116,9 @@ void GameManager::clean()
 {
     Screen::deleteInstance();
     Map::deleteInstance();
+    gameObjects.clear();
 }
+
 
 
 

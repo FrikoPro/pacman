@@ -11,6 +11,8 @@
 #include "Rails.h"
 #include "Screen.h"
 #include "SDL_utility.h"
+#include "Pill.h"
+
 
 class Map {
 
@@ -20,6 +22,7 @@ public:
     void renderMap();
     std::vector<Rails> getRails();
     void initPills();
+    std::vector<Pill*> getPills();
 
 private:
     Map();
@@ -28,6 +31,7 @@ private:
     SDL_Texture *txMap;
     std::vector<Rails> arrayOfRails;
     std::vector<Rails> castleRails;
+    std::vector<Pill*> pills;
 
 
 };

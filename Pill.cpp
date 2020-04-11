@@ -4,9 +4,21 @@
 
 #include "Pill.h"
 
-Pill::Pill(SDL_Point pos) : GameObject("../data/gfx/pille.png", pos) {
+Pill::Pill(SDL_Point pos) : GameObject("../data/gfx/pille.png", pos)
+{
     objTexture = Screen::loadImage("../data/gfx/pille.png", -1);
+}
 
+Pill::~Pill() {}
+
+SDL_Point Pill::getPos()
+{
+    SDL_Point pos = this->pos;
+    return pos;
+}
+
+void Pill::update()
+{
     srcRect.h = 3;
     srcRect.w = 3;
     srcRect.x = 0;
@@ -16,12 +28,4 @@ Pill::Pill(SDL_Point pos) : GameObject("../data/gfx/pille.png", pos) {
     destRect.y = pos.y;
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
-}
-
-Pill::~Pill() {}
-
-SDL_Point Pill::getPos()
-{
-    SDL_Point pos = this->pos;
-    return pos;
 }

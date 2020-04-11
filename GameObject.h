@@ -11,6 +11,7 @@
 
 
 class Rails;
+class Pill;
 
 class GameObject {
 
@@ -19,7 +20,7 @@ public:
 
     virtual ~GameObject();
 
-    void update();
+    virtual void update();
 
     void render();
 

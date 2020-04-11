@@ -13,6 +13,8 @@ public:
     Pill(SDL_Point pos);
     ~Pill();
 
+    void update();
+
     SDL_Point getPos();
 
 };
