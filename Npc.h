@@ -32,6 +32,8 @@ public:
     bool isPointIn(std::set<SDL_Point*> alreadyVisted, SDL_Point point);
     bool isPathTo(std::vector<SDL_Point> &stack, Rails rail);
     bool isValidPoint(SDL_Point point);
+    void checkCollision();
+    void findNewLocation();
 
 protected:
 

@@ -22,7 +22,7 @@ Clyde * Clyde::getInstance()
     return instance;
 }
 
-void *Clyde::deleteInstance()
+void Clyde::deleteInstance()
 {
     if(instance) {
         delete instance;

@@ -209,5 +209,20 @@ Pacman::Direction Pacman::getPreDirection()
     return pre_direction;
 }
 
+void Pacman::decrementHp()
+{
+    hp--;
+}
+
+int Pacman::getHp()
+{
+    return hp;
+}
+
+void Pacman::setPosition(SDL_Point point)
+{
+    this->pos = point;
+}
+
 
 

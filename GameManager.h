@@ -46,7 +46,8 @@ private:
 
     Direction direction;
     Pacman *pacman = Pacman::getInstance();
-    std::vector<GameObject*> gameObjects;
+    std::vector<GameObject*> players;
+    std::vector<GameObject*> pills;
 
 
     GameManager();

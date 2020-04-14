@@ -191,10 +191,25 @@ void Npc::moveLeft()
 void Npc::update()
 {
     GameObject::update();
+    checkCollision();
+}
 
+void Npc::checkCollision()
+{
     SDL_Rect pacmanRect = Pacman::getInstance()->getRect();
-
     if(SDL_HasIntersection(&destRect, &pacmanRect)) {
-        Pacman::getInstance()->setStillAlive(false);
+        Pacman::getInstance()->decrementHp();
+        findNewLocation();
     }
+}
+
+void Npc::findNewLocation()
+{
+    int randNum = rand() % 92;
+    SDL_Point dest = arrayOfRails[randNum].end;
+    std::vector<SDL_Point> newPath = findPath(Pacman::getInstance()->getPosition(), dest);
+    if(newPath.size() < 25) {
+        findNewLocation();
+    }
+    Pacman::getInstance()->setPosition(newPath[0]);
 }

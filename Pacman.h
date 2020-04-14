@@ -17,6 +17,7 @@ public:
     static void deleteInstance();
     void move();
     SDL_Point getPosition();
+    void setPosition(SDL_Point point);
     SDL_Rect getRect();
 
     enum Direction {LEFT, RIGHT, UP, DOWN, STOP};
@@ -34,7 +35,9 @@ public:
     void moveDown();
     void moveUp();
 
+    void decrementHp();
 
+    int getHp();
 
 private:
 
@@ -42,6 +45,7 @@ private:
     Direction pre_direction;
     Rails *currentRail;
     Direction direction;
+    int hp = 3;
 
     Pacman();
     ~Pacman();

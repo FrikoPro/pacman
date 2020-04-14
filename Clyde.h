@@ -11,7 +11,7 @@ class Clyde : public Npc {
 
 public:
     static Clyde *getInstance();
-    static void *deleteInstance();
+    static void deleteInstance();
 
     void move();
 

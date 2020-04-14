@@ -25,14 +25,14 @@ GameManager::GameManager() : isRunning(true)
 {
     Map::getInstance();
     Map::getInstance()->initPills();
-    for(Pill *pill : Map::getInstance()->getPills()) {
-        gameObjects.emplace_back(pill);
+    for (Pill *pill : Map::getInstance()->getPills()) {
+        pills.emplace_back(pill);
     }
-    gameObjects.emplace_back(pacman);
-    gameObjects.emplace_back(Blinky::getInstance());
-    gameObjects.emplace_back(Clyde::getInstance());
-    gameObjects.emplace_back(Pinky::getInstance());
-    gameObjects.emplace_back(Inky::getInstance());
+    players.emplace_back(pacman);
+    players.emplace_back(Blinky::getInstance());
+    players.emplace_back(Clyde::getInstance());
+    players.emplace_back(Pinky::getInstance());
+    players.emplace_back(Inky::getInstance());
 }
 
 GameManager::~GameManager()
@@ -96,20 +96,25 @@ void GameManager::handleEvents()
 void GameManager::update()
 {
 
+    for (auto &player : players) {
+        player->update();
+        player->move();
+    }
+
     int index = 0;
-    for (auto &object : gameObjects) {
-        if(!object->isStillAlive())
-            gameObjects.erase(gameObjects.begin() + index);
-        object->update();
-        object->move();
+    for (auto &pill : pills) {
+        if (!pill->isStillAlive()) {
+            pills.erase(pills.begin() + index);
+        }
+        pill->update();
         index++;
     }
 
-    if(!pacman->getInstance()->isStillAlive()) {
+    if (!pacman->getInstance()->getHp()) {
         isRunning = false;
     }
 
-    if(gameObjects.size() < 6) {
+    if (pills.empty()) {
         isRunning = false;
     }
 
@@ -117,9 +122,13 @@ void GameManager::update()
 
 void GameManager::render()
 {
+
     SDL_RenderClear(Screen::renderer);
     Map::getInstance()->renderMap();
-    for (auto &player : gameObjects) {
+    for (auto &pill : pills) {
+        pill->render();
+    }
+    for (auto &player : players) {
         player->render();
     }
 
@@ -130,7 +139,7 @@ void GameManager::clean()
 {
     Screen::deleteInstance();
     Map::deleteInstance();
-    gameObjects.clear();
+    players.clear();
 }
 
 
