@@ -139,9 +139,9 @@ SDL_Point Pacman::getPosition()
     return pos;
 }
 
-Rails *Pacman::getCurrentRail()
+SDL_Rect Pacman::getRect()
 {
-    return currentRail;
+    return destRect;
 }
 
 void Pacman::moveUp()

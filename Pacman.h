@@ -17,7 +17,7 @@ public:
     static void deleteInstance();
     void move();
     SDL_Point getPosition();
-    Rails *getCurrentRail();
+    SDL_Rect getRect();
 
     enum Direction {LEFT, RIGHT, UP, DOWN, STOP};
 

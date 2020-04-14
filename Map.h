@@ -30,7 +30,7 @@ private:
     static Map *instance;
     SDL_Texture *txMap;
     std::vector<Rails> arrayOfRails;
-    std::vector<Rails> castleRails;
+    std::vector<Rails> skipRails;
     std::vector<Pill*> pills;
 
 

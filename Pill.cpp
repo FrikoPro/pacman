@@ -3,6 +3,7 @@
 //
 
 #include "Pill.h"
+#include "Pacman.h"
 
 Pill::Pill(SDL_Point pos) : GameObject("../data/gfx/pille.png", pos)
 {
@@ -28,4 +29,10 @@ void Pill::update()
     destRect.y = pos.y;
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
+
+    SDL_Rect pacmanRect = Pacman::getInstance()->getRect();
+
+    if(SDL_HasIntersection(&destRect, &pacmanRect)) {
+        stillAlive = false;
+    }
 }

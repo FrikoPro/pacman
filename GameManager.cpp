@@ -3,7 +3,6 @@
 //
 
 #include "GameManager.h"
-#include "Blinky.h"
 
 
 GameManager *GameManager::instance = nullptr;
@@ -31,6 +30,9 @@ GameManager::GameManager() : isRunning(true)
     }
     gameObjects.emplace_back(pacman);
     gameObjects.emplace_back(Blinky::getInstance());
+    gameObjects.emplace_back(Clyde::getInstance());
+    gameObjects.emplace_back(Pinky::getInstance());
+    gameObjects.emplace_back(Inky::getInstance());
 }
 
 GameManager::~GameManager()
@@ -94,9 +96,21 @@ void GameManager::handleEvents()
 void GameManager::update()
 {
 
+    int index = 0;
     for (auto &object : gameObjects) {
+        if(!object->isStillAlive())
+            gameObjects.erase(gameObjects.begin() + index);
         object->update();
         object->move();
+        index++;
+    }
+
+    if(!pacman->getInstance()->isStillAlive()) {
+        isRunning = false;
+    }
+
+    if(gameObjects.size() < 6) {
+        isRunning = false;
     }
 
 }

@@ -7,8 +7,12 @@
 
 #include "Screen.h"
 #include "Pacman.h"
-#include <vector>
 #include "Map.h"
+#include "Blinky.h"
+#include "Clyde.h"
+#include "Inky.h"
+#include "Pinky.h"
+#include <vector>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>

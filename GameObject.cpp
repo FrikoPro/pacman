@@ -35,6 +35,16 @@ void GameObject::update()
 
 }
 
+bool GameObject::isStillAlive()
+{
+    return stillAlive;
+}
+
+void GameObject::setStillAlive(bool stillAlive)
+{
+    this->stillAlive = stillAlive;
+}
+
 void GameObject::move()
 {
 }

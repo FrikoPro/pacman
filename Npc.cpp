@@ -57,8 +57,8 @@ std::vector<SDL_Point> Npc::findPath(SDL_Point start, SDL_Point dest)
 
     Rails rail;
 
-    for(Rails currRail : arrayOfRails) {
-        if(currRail == dest) {
+    for (Rails currRail : arrayOfRails) {
+        if (currRail == dest) {
             rail = currRail;
             break;
         }
@@ -156,7 +156,6 @@ std::vector<SDL_Point> Npc::getAdjacents(SDL_Point point)
 }
 
 
-
 void Npc::moveUp()
 {
     if (pos.y - 2 < goal.y) {
@@ -187,4 +186,15 @@ void Npc::moveLeft()
         pos.x = goal.x;
     else
         pos.x -= 2;
+}
+
+void Npc::update()
+{
+    GameObject::update();
+
+    SDL_Rect pacmanRect = Pacman::getInstance()->getRect();
+
+    if(SDL_HasIntersection(&destRect, &pacmanRect)) {
+        Pacman::getInstance()->setStillAlive(false);
+    }
 }

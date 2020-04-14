@@ -23,6 +23,8 @@ public:
 
     virtual void move();
 
+    void update();
+
     std::vector<SDL_Point> findPath(SDL_Point start, SDL_Point dest);
     void
     calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &alreadyVisted, SDL_Point current, Rails rail);
@@ -33,7 +35,7 @@ public:
 
 protected:
 
-    SDL_Point destination;
+    SDL_Point destination = SDL_Point{0,0};
     SDL_Point goal;
     std::vector<SDL_Point> path;
 

@@ -15,5 +15,4 @@ inline bool operator==(SDL_Point const *obj1, SDL_Point const &obj2)
     } else
         return false;
 }
-
 #endif //PACMAN_SDL_UTILITY_H

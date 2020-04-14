@@ -6,7 +6,8 @@
 
 Map *Map::instance = nullptr;
 
-Map::Map() {
+Map::Map()
+{
     txMap = Screen::loadImage("../data/gfx/hintergrund2.png", -1);
     arrayOfRails.emplace_back(Rails({138, 37}, {207, 37}));
     arrayOfRails.emplace_back(Rails({207, 37}, {290, 37}));
@@ -26,23 +27,23 @@ Map::Map() {
     arrayOfRails.emplace_back(Rails({330, 133}, {371, 133}));
     arrayOfRails.emplace_back(Rails({412, 133}, {480, 133}));
     arrayOfRails.emplace_back(Rails({249, 174}, {290, 174}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({290, 174}, {310, 174}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({310, 174}, {330, 174}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({330, 174}, {371, 174}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({100, 215}, {207, 215})); // tunnel left
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({207, 215}, {249, 215}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({371, 215}, {412, 215}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({412, 215}, {515, 215})); // tunnel right
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({249, 257}, {371, 257}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({138, 298}, {207, 298}));
     arrayOfRails.emplace_back(Rails({207, 298}, {249, 298}));
     arrayOfRails.emplace_back(Rails({249, 298}, {290, 298}));
@@ -81,29 +82,29 @@ Map::Map() {
     arrayOfRails.emplace_back(Rails({207, 339}, {207, 380}));
     arrayOfRails.emplace_back(Rails({249, 92}, {249, 133}));
     arrayOfRails.emplace_back(Rails({249, 174}, {249, 215}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({249, 215}, {249, 257}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({249, 257}, {249, 298}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({249, 339}, {249, 380}));
     arrayOfRails.emplace_back(Rails({290, 37}, {290, 92}));
     arrayOfRails.emplace_back(Rails({290, 133}, {290, 174}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({290, 298}, {290, 339}));
     arrayOfRails.emplace_back(Rails({290, 380}, {290, 421}));
     arrayOfRails.emplace_back(Rails({330, 37}, {330, 92}));
     arrayOfRails.emplace_back(Rails({330, 133}, {330, 174}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({330, 298}, {330, 339}));
     arrayOfRails.emplace_back(Rails({330, 380}, {330, 421}));
     arrayOfRails.emplace_back(Rails({371, 92}, {371, 133}));
     arrayOfRails.emplace_back(Rails({371, 174}, {371, 215}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({371, 215}, {371, 257}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({371, 257}, {371, 298}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({371, 339}, {371, 380}));
 
     arrayOfRails.emplace_back(Rails({412, 37}, {412, 92}));
@@ -120,37 +121,44 @@ Map::Map() {
 
     // ghost castle
     arrayOfRails.emplace_back(Rails({280, 222}, {310, 222}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({310, 222}, {340, 222}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({280, 200}, {280, 222}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({310, 174}, {310, 222}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
     arrayOfRails.emplace_back(Rails({340, 200}, {340, 222}));
-    castleRails.emplace_back(arrayOfRails.back());
+    skipRails.emplace_back(arrayOfRails.back());
 
 }
 
-Map::~Map() {
+Map::~Map()
+{
 }
 
-Map *Map::getInstance() {
+Map *Map::getInstance()
+{
     if (!instance) {
         instance = new Map;
     }
     return instance;
 }
 
-void Map::initPills() {
+void Map::initPills()
+{
+
+/*    if (!pills.empty())
+        return;
+
 
     double initDistance = 0;
     SDL_Point start = {138, 37};
 
     for (Rails rail : arrayOfRails) {
         bool nextRail = false;
-        for (Rails castleRails : castleRails) {
-            if (castleRails == rail) {
+        for (Rails noPillsRail : castleRails) {
+            if (noPillsRail == rail) {
                 nextRail = true;
                 break;
             }
@@ -160,20 +168,18 @@ void Map::initPills() {
             continue;
         if (rail.start.y == rail.end.y) {
             if (&rail.start == start) {
-                initDistance += abs(rail.start.x - rail.end.x);
+                initDistance += abs(rail.start.x - rail.end.x) + 1;
                 start = rail.end;
             } else {
+                int spacing = 12;
                 int maxPills = round(initDistance / 15);
-                int spacing = 10;
                 int distance = initDistance;
-                for (int pill = 0; pill < maxPills; pill++) {
-                    pills.emplace_back(new Pill({start.x - distance + spacing, start.y + 10}));
+                for (int pill = 0; pill <= maxPills; pill++) {
+                    pills.emplace_back(new Pill({start.x - distance + spacing, start.y + 12}));
                     spacing += 15;
                 }
-                if (rail.start.y == rail.end.y)
-                    initDistance = abs(rail.start.x - rail.end.x);
-                else
-                    initDistance = abs(rail.start.y - rail.end.y);
+
+                initDistance = abs(rail.start.x - rail.end.x);
                 start = rail.end;
             }
         } else if (rail.start.x == rail.end.x) {
@@ -181,24 +187,23 @@ void Map::initPills() {
                 initDistance += abs(rail.start.y - rail.end.y);
                 start = rail.end;
             } else {
-                initDistance - 15;
                 int maxPills = round(initDistance / 15);
                 int spacing = 25;
                 int distance = initDistance;
                 for (int pill = 0; pill < maxPills; pill++) {
-                    pills.emplace_back(new Pill({start.x + 10, start.y - distance + spacing}));
+                    pills.emplace_back(new Pill({start.x + 12, start.y - distance + spacing}));
                     spacing += 15;
                 }
                 initDistance = abs(rail.start.y - rail.end.y);
                 start = rail.end;
             }
         }
-    }
 
-    /*7for (Rails &rail : arrayOfRails) {
+    }*/
+    for (Rails &rail : arrayOfRails) {
         bool nextRail = false;
-        for (Rails castleRails : castleRails) {
-            if (castleRails == rail) {
+        for (Rails skipRail : skipRails) {
+            if (skipRail == rail) {
                 nextRail = true;
                 break;
             }
@@ -212,29 +217,10 @@ void Map::initPills() {
             double distance = rail.end.x - rail.start.x;
             int maxPills = round(distance / spacing);
             for (int pill = 0; pill < maxPills; pill++) {
-                bool nextPill = false;
-                for (Rails rail2 : arrayOfRails) {
-                    if (nextPill)
-                        break;
-                    for (Pill *pill1 : rail2.pills) {
-                        SDL_Point pos = pill1->getPos();
-                        if (!(pos.x + spacing == rail.start.x && pos.y + 10 == rail.start.y)) {
-                            continue;
-                        } else {
-                            nextPill = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (nextPill) {
-                    spacing += 14;
-                    continue;
-                }
                 if ((spacing + rail.start.x) > rail.end.x || (rail.start.x + spacing) > (rail.end.x - 14)) {
-                    rail.pills.emplace_back(new Pill({rail.end.x, rail.start.y + 10}));
+                    pills.emplace_back(new Pill({rail.end.x, rail.start.y + 10}));
                 } else {
-                    rail.pills.emplace_back(new Pill({rail.start.x + spacing, rail.start.y + 10}));
+                    pills.emplace_back(new Pill({rail.start.x + spacing, rail.start.y + 10}));
                     spacing += 14;
                 }
             }
@@ -242,68 +228,65 @@ void Map::initPills() {
             double distance = rail.end.y - rail.start.y;
             int maxPills = round(distance / spacing);
             for (int pill = 0; pill < maxPills; pill++) {
-                bool nextPill = false;
-                for (Rails rail2 : arrayOfRails) {
-                    if (nextPill)
-                        break;
-                    for (Pill *pill1 : rail2.pills) {
-                        SDL_Point pos = pill1->getPos();
-                        if (!(pos.x + 10 == rail.start.x && pos.y == rail.start.y + spacing)) {
-                            continue;
-                        } else {
-                            nextPill = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (nextPill) {
-                    spacing += 14;
-                    continue;
-                }
                 if ((spacing + rail.start.y) > rail.end.y || (rail.start.y + spacing) > (rail.end.y - 14))
-                    rail.pills.emplace_back(new Pill({rail.start.x + 10, rail.end.y}));
+                    pills.emplace_back(new Pill({rail.start.x + 10, rail.end.y}));
                 else {
-                    rail.pills.emplace_back(new Pill({rail.start.x + 10, rail.start.y + spacing}));
+                    pills.emplace_back(new Pill({rail.start.x + 10, rail.start.y + spacing}));
                     spacing += 14;
                 }
             }
         }
 
         if (&rail.start == SDL_Point{330, 133} && &rail.end == SDL_Point{371, 133}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         } else if (&rail.start == SDL_Point{249, 133} && &rail.end == SDL_Point{290, 133}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         } else if (&rail.start == SDL_Point{166, 380} && &rail.end == SDL_Point{207, 380}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         } else if (&rail.start == SDL_Point{412, 133} && &rail.end == SDL_Point{480, 133}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         } else if (&rail.start == SDL_Point{452, 339} && &rail.end == SDL_Point{480, 339}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         } else if (&rail.start == SDL_Point{330, 421} && &rail.end == SDL_Point{480, 421}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if(&rail.start == SDL_Point{330, 380} && &rail.end == SDL_Point{371, 380}) {
-            rail.pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
+        } else if (&rail.start == SDL_Point{330, 380} && &rail.end == SDL_Point{371, 380}) {
+            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
         }
-    }*/
+    }
+
+    int index = 0;
+    for(Pill *pill : pills) {
+        int index2 = 0;
+        for(Pill *pill2 : pills) {
+            SDL_Point pillPos = pill->getPos();
+            if(&pillPos == pill2->getPos() && index != index2) {
+                pills.erase(pills.begin() + index2);
+            }
+            index2++;
+        }
+        index++;
+    }
 }
 
-void Map::deleteInstance() {
+void Map::deleteInstance()
+{
     if (instance) {
         delete instance;
     }
     instance = nullptr;
 }
 
-std::vector<Rails> Map::getRails() {
+std::vector<Rails> Map::getRails()
+{
     return arrayOfRails;
 }
 
-std::vector<Pill*> Map::getPills()
+std::vector<Pill *> Map::getPills()
 {
     return pills;
 }
 
-void Map::renderMap() {
+void Map::renderMap()
+{
     SDL_RenderCopy(Screen::renderer, Map::txMap, nullptr, nullptr);
 }
