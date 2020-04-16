@@ -12,6 +12,7 @@
 #include "Clyde.h"
 #include "Inky.h"
 #include "Pinky.h"
+#include "Npc.h"
 #include <vector>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
@@ -28,6 +29,8 @@ public:
 
     void runGame();
 
+    void setHasCollided();
+
     void handleEvents();
     void update();
     void render();
@@ -37,8 +40,11 @@ public:
 
 private:
 
+    int pacmanHp = 3;
+
     static GameManager *instance;
     bool isRunning;
+    bool hasCollided = false;
     Uint32 frameStart;
     int frameTime;
     const int FPS = 60;
@@ -50,10 +56,12 @@ private:
     std::vector<GameObject*> pills;
 
 
+
     GameManager();
     ~GameManager();
 
 
+    void checkFrameRate();
 };
 
 

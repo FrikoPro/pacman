@@ -134,8 +134,7 @@ Map::Map()
 }
 
 Map::~Map()
-{
-}
+{}
 
 Map *Map::getInstance()
 {
@@ -272,8 +271,8 @@ void Map::deleteInstance()
 {
     if (instance) {
         delete instance;
+        instance = nullptr;
     }
-    instance = nullptr;
 }
 
 std::vector<Rails> Map::getRails()

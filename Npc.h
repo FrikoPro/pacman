@@ -33,13 +33,15 @@ public:
     bool isPathTo(std::vector<SDL_Point> &stack, Rails rail);
     bool isValidPoint(SDL_Point point);
     void checkCollision();
-    void findNewLocation();
 
 protected:
 
     SDL_Point destination = SDL_Point{0,0};
     SDL_Point goal;
     std::vector<SDL_Point> path;
+
+private:
+    int count = 0;
 
 };
 

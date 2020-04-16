@@ -35,17 +35,12 @@ public:
     void moveDown();
     void moveUp();
 
-    void decrementHp();
-
-    int getHp();
-
 private:
 
     static Pacman *instance;
     Direction pre_direction;
     Rails *currentRail;
     Direction direction;
-    int hp = 3;
 
     Pacman();
     ~Pacman();

@@ -13,9 +13,7 @@ Blinky::Blinky() : Npc("../data/gfx/blinky_1.png", {280, 222})
 }
 
 Blinky::~Blinky()
-{
-    deleteInstance();
-}
+{}
 
 Blinky *Blinky::getInstance()
 {
@@ -26,9 +24,10 @@ Blinky *Blinky::getInstance()
 
 void Blinky::deleteInstance()
 {
-    if (instance)
+    if (instance) {
         delete instance;
-    instance = nullptr;
+        instance = nullptr;
+    }
 }
 
 void Blinky::move()

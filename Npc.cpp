@@ -3,6 +3,7 @@
 //
 
 #include "Npc.h"
+#include "GameManager.h"
 
 
 Npc::Npc(const char *path, SDL_Point pos) : GameObject(path, pos)
@@ -54,7 +55,7 @@ bool Npc::isValidPoint(SDL_Point point)
 
 std::vector<SDL_Point> Npc::findPath(SDL_Point start, SDL_Point dest)
 {
-
+    count = 0;
     Rails rail;
 
     for (Rails currRail : arrayOfRails) {
@@ -102,6 +103,7 @@ bool Npc::isPointIn(std::set<SDL_Point *> alreadyVisted, SDL_Point point)
 void
 Npc::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &alreadyVisted, SDL_Point current, Rails rail)
 {
+
     stack.emplace_back(current);
     alreadyVisted.insert(&current);
 
@@ -113,9 +115,15 @@ Npc::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &already
             continue;
         }
 
+        count++;
         calculatePath(stack, alreadyVisted, adjacent, rail);
 
         if (!isPathTo(stack, rail)) {
+            if(count > 10000) {
+                stack.clear();
+                alreadyVisted.clear();
+                return;
+            }
             stack.pop_back();
         } else {
             return;
@@ -198,18 +206,7 @@ void Npc::checkCollision()
 {
     SDL_Rect pacmanRect = Pacman::getInstance()->getRect();
     if(SDL_HasIntersection(&destRect, &pacmanRect)) {
-        Pacman::getInstance()->decrementHp();
-        findNewLocation();
+        GameManager::getInstance()->setHasCollided();
     }
 }
 
-void Npc::findNewLocation()
-{
-    int randNum = rand() % 92;
-    SDL_Point dest = arrayOfRails[randNum].end;
-    std::vector<SDL_Point> newPath = findPath(Pacman::getInstance()->getPosition(), dest);
-    if(newPath.size() < 25) {
-        findNewLocation();
-    }
-    Pacman::getInstance()->setPosition(newPath[0]);
-}

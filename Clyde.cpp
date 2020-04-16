@@ -10,13 +10,11 @@ Clyde::Clyde() : Npc("../data/gfx/clyde_1.png", SDL_Point{310, 222})
 {}
 
 Clyde::~Clyde()
-{
-    deleteInstance();
-}
+{}
 
-Clyde * Clyde::getInstance()
+Clyde *Clyde::getInstance()
 {
-    if(!instance) {
+    if (!instance) {
         instance = new Clyde;
     }
     return instance;
@@ -24,10 +22,11 @@ Clyde * Clyde::getInstance()
 
 void Clyde::deleteInstance()
 {
-    if(instance) {
+    if (instance) {
         delete instance;
+        instance = nullptr;
     }
-    instance = nullptr;
+
 }
 
 void Clyde::move()

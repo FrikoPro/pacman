@@ -16,9 +16,10 @@ GameManager *GameManager::getInstance()
 
 void GameManager::deleteInstance()
 {
-    if (instance)
+    if (instance) {
         delete instance;
-    instance = nullptr;
+        instance = nullptr;
+    }
 }
 
 GameManager::GameManager() : isRunning(true)
@@ -36,9 +37,7 @@ GameManager::GameManager() : isRunning(true)
 }
 
 GameManager::~GameManager()
-{
-    deleteInstance();
-}
+{}
 
 void GameManager::runGame()
 {
@@ -50,15 +49,19 @@ void GameManager::runGame()
         handleEvents();
         update();
         render();
-
-        frameTime = SDL_GetTicks() - frameStart;
-
-        if (frameDelay > frameTime) {
-            SDL_Delay(frameDelay - frameTime);
-        }
+        checkFrameRate();
     }
 
     clean();
+}
+
+void GameManager::checkFrameRate()
+{
+    frameTime = SDL_GetTicks() - frameStart;
+
+    if (frameDelay > frameTime) {
+        SDL_Delay(frameDelay - frameTime);
+    }
 }
 
 void GameManager::handleEvents()
@@ -89,6 +92,7 @@ void GameManager::handleEvents()
             if (pacman->getDirection() == pacman->getPreDirection()) {
                 pacman->setPreDirection(static_cast<Pacman::Direction>(direction));
             }
+
         }
     }
 }
@@ -101,21 +105,46 @@ void GameManager::update()
         player->move();
     }
 
+
     int index = 0;
     for (auto &pill : pills) {
-        if (!pill->isStillAlive()) {
-            pills.erase(pills.begin() + index);
-        }
         pill->update();
         index++;
     }
 
-    if (!pacman->getInstance()->getHp()) {
+    pills.erase(std::remove_if(
+            pills.begin(),
+            pills.end(),
+            [](GameObject *pill) -> bool {
+                return !pill->isStillAlive();
+            }
+                ),
+                pills.end()
+    );
+
+    if (pacmanHp < 1) {
         isRunning = false;
     }
 
     if (pills.empty()) {
         isRunning = false;
+    }
+
+    if(hasCollided) {
+        pacmanHp--;
+        players.clear();
+        pacman->deleteInstance();
+        Blinky::deleteInstance();
+        Pinky::deleteInstance();
+        Inky::deleteInstance();
+        Clyde::deleteInstance();
+        pacman = Pacman::getInstance();
+        players.emplace_back(pacman);
+        players.emplace_back(Blinky::getInstance());
+        players.emplace_back(Clyde::getInstance());
+        players.emplace_back(Pinky::getInstance());
+        players.emplace_back(Inky::getInstance());
+        hasCollided = false;
     }
 
 }
@@ -124,7 +153,13 @@ void GameManager::render()
 {
 
     SDL_RenderClear(Screen::renderer);
+
     Map::getInstance()->renderMap();
+    char str[10];
+    sprintf(str, "%s%d", "Pacmans HP: ", pacmanHp);
+    Screen::drawText(15, SDL_Color{255, 255, 255}, str, SDL_Point{400, 460});
+
+
     for (auto &pill : pills) {
         pill->render();
     }
@@ -132,14 +167,35 @@ void GameManager::render()
         player->render();
     }
 
+    if (!isRunning) {
+
+        if(pills.empty()) {
+            Screen::drawText(40, {0, 255, 0}, "You win!", {280, 210});
+        } else {
+        Screen::drawText(40, {255, 0, 0}, "Game over", {280, 210});
+        }
+        Screen::drawText(20, {255, 255, 255}, "Press enter to play agian or escape to quit", {100, 260});
+    }
+
     SDL_RenderPresent(Screen::renderer);
+}
+
+void GameManager::setHasCollided()
+{
+    hasCollided = true;
 }
 
 void GameManager::clean()
 {
-    Screen::deleteInstance();
     Map::deleteInstance();
     players.clear();
+    pills.clear();
+    pacman->deleteInstance();
+    Blinky::deleteInstance();
+    Inky::deleteInstance();
+    Pinky::deleteInstance();
+    Clyde::deleteInstance();
+    deleteInstance();
 }
 
 

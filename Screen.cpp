@@ -4,6 +4,7 @@
 
 #include "Screen.h"
 
+
 Screen *Screen::instance = nullptr;
 SDL_Renderer *Screen::renderer = nullptr;
 
@@ -24,9 +25,12 @@ void Screen::deleteInstance() {
 
 Screen::Screen() {
 
-
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         printf("error initializing SDL: %s\n", SDL_GetError());
+    }
+
+    if(TTF_Init() < 0) {
+        std::cout << "Couldn't initialize TTF libary" << TTF_GetError() << std::endl;
     }
 
     window = SDL_CreateWindow("pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -68,6 +72,33 @@ SDL_Texture *Screen::loadImage(const char* path, int alphaColor) {
     SDL_Texture *txTemp = SDL_CreateTextureFromSurface(Screen::renderer, temp);
     SDL_FreeSurface(temp);
     return txTemp;
+}
+
+void Screen::drawText(int size, SDL_Color color, const char *text, SDL_Point pos)
+{
+    TTF_Font* sans = TTF_OpenFont("../data/fonts/Cheapmot.TTF", size);
+
+    if(!sans) {
+        std::cout << "falied to load font: " << TTF_GetError() << std::endl;
+    }
+
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(sans, text, color);
+
+    SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+    SDL_Rect textRect;
+
+    int sizeOfText = strlen(text);
+
+    textRect.x = pos.x;
+    textRect.y = pos.y;
+    textRect.w = sizeOfText*10;
+    textRect.h = size;
+
+
+    SDL_FreeSurface(surfaceMessage);
+
+    SDL_RenderCopy(renderer, message, nullptr, &textRect);
 }
 
 

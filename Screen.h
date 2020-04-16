@@ -11,6 +11,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 
 class Screen {
@@ -20,7 +21,8 @@ public:
     static void deleteInstance();
 
     static SDL_Texture *loadImage(const char* path, int alphaColor);
-    SDL_Renderer *getRenderer() {return renderer;}
+
+    static void drawText(int size, SDL_Color color, const char *text, SDL_Point pos);
 
     static SDL_Renderer *renderer;
 

@@ -18,20 +18,17 @@ void Pacman::deleteInstance()
 {
     if (instance) {
         delete instance;
+        instance = nullptr;
     }
-    instance = nullptr;
+
 }
 
 Pacman::Pacman() : pre_direction(STOP), direction(LEFT),
                    GameObject("../data/gfx/pacman.png", {330, 339})
-{
-
-}
+{}
 
 Pacman::~Pacman()
-{
-    deleteInstance();
-}
+{}
 
 void Pacman::move()
 {
@@ -209,15 +206,6 @@ Pacman::Direction Pacman::getPreDirection()
     return pre_direction;
 }
 
-void Pacman::decrementHp()
-{
-    hp--;
-}
-
-int Pacman::getHp()
-{
-    return hp;
-}
 
 void Pacman::setPosition(SDL_Point point)
 {

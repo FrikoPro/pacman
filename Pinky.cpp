@@ -23,8 +23,9 @@ void Pinky::deleteInstance()
 {
     if(instance) {
         delete instance;
+        instance = nullptr;
     }
-    instance = nullptr;
+
 }
 
 void Pinky::move()
