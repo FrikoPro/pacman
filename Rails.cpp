@@ -7,6 +7,9 @@
 Rails::Rails(SDL_Point start, SDL_Point end) : start(start), end(end)
 {}
 
+Rails::Rails() : start{0,0}, end{0,0}
+{}
+
 Rails::~Rails()
 = default;
 
