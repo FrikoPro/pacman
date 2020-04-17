@@ -13,7 +13,7 @@ Blinky::Blinky() : Npc("../data/gfx/blinky_1.png", {280, 222})
 }
 
 Blinky::~Blinky()
-{}
+= default;
 
 Blinky *Blinky::getInstance()
 {

@@ -6,14 +6,15 @@
 
 Pinky *Pinky::instance = nullptr;
 
-Pinky::Pinky() : Npc("../data/gfx/pinky_1.png", SDL_Point{310, 222}) {}
+Pinky::Pinky() : Npc("../data/gfx/pinky_1.png", SDL_Point{310, 222})
+{}
 
 Pinky::~Pinky()
-{}
+= default;
 
 Pinky *Pinky::getInstance()
 {
-    if(!instance) {
+    if (!instance) {
         instance = new Pinky;
     }
     return instance;
@@ -21,7 +22,7 @@ Pinky *Pinky::getInstance()
 
 void Pinky::deleteInstance()
 {
-    if(instance) {
+    if (instance) {
         delete instance;
         instance = nullptr;
     }

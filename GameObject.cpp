@@ -9,10 +9,10 @@
 GameObject::GameObject(const char *path, SDL_Point pos) : objTexture(Screen::loadImage(path, 255)),
                                                           arrayOfRails(Map::getInstance()->getRails()),
                                                           renderer(Screen::renderer), pos(pos)
-                                                          {}
+{}
 
 GameObject::~GameObject()
-{}
+= default;
 
 void GameObject::update()
 {
@@ -38,11 +38,6 @@ void GameObject::update()
 bool GameObject::isStillAlive()
 {
     return stillAlive;
-}
-
-void GameObject::setStillAlive(bool stillAlive)
-{
-    this->stillAlive = stillAlive;
 }
 
 void GameObject::move()

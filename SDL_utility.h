@@ -10,9 +10,7 @@
 
 inline bool operator==(SDL_Point const *obj1, SDL_Point const &obj2)
 {
-    if (obj1->x == obj2.x && obj1->y == obj2.y) {
-        return true;
-    } else
-        return false;
+    return obj1->x == obj2.x && obj1->y == obj2.y;
 }
+
 #endif //PACMAN_SDL_UTILITY_H

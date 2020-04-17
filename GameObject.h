@@ -10,8 +10,8 @@
 #include "Screen.h"
 
 
-
 class Rails;
+
 class Pill;
 
 class GameObject {
@@ -29,12 +29,11 @@ public:
 
     bool isStillAlive();
 
-    void setStillAlive(bool stillAlive);
 
 protected:
     SDL_Point pos;
     SDL_Texture *objTexture;
-    SDL_Rect srcRect, destRect;
+    SDL_Rect srcRect{0,0,0,0}, destRect{0,0,0,0};
     SDL_Renderer *renderer;
     SDL_Point teleportRight = SDL_Point{515, 215};
     SDL_Point teleportLeft = SDL_Point{100, 215};

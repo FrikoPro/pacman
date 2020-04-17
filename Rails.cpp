@@ -7,11 +7,8 @@
 Rails::Rails(SDL_Point start, SDL_Point end) : start(start), end(end)
 {}
 
-Rails::Rails()
-{}
-
 Rails::~Rails()
-{}
+= default;
 
 bool Rails::operator==(const Rails &obj1)
 {
@@ -25,5 +22,5 @@ bool Rails::operator==(const Rails &obj1)
 bool Rails::operator==(const SDL_Point &point)
 {
     return (point.x >= this->start.x && point.x <= this->end.x) &&
-    point.y >= this->start.y && point.y <= this->end.y;
+           point.y >= this->start.y && point.y <= this->end.y;
 }

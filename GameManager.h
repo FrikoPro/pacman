@@ -32,10 +32,15 @@ public:
     void setHasCollided();
 
     void handleEvents();
+
     void update();
+
     void render();
+
     void clean();
-    enum Direction{};
+
+    enum Direction {
+    };
 
 
 private:
@@ -45,19 +50,19 @@ private:
     static GameManager *instance;
     bool isRunning;
     bool hasCollided = false;
-    Uint32 frameStart;
-    int frameTime;
+    Uint32 frameStart{};
+    int frameTime{};
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 
     Direction direction;
     Pacman *pacman = Pacman::getInstance();
-    std::vector<GameObject*> players;
-    std::vector<GameObject*> pills;
-
+    std::vector<GameObject *> players;
+    std::vector<GameObject *> pills;
 
 
     GameManager();
+
     ~GameManager();
 
 

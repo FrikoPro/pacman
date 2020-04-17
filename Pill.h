@@ -10,12 +10,11 @@
 class Pill : public GameObject {
 
 public:
-    Pill(SDL_Point pos);
-    ~Pill();
+    explicit Pill(SDL_Point pos);
 
-    void update();
+    ~Pill() override;
 
-    SDL_Point getPos();
+    void update() override;
 
 };
 

@@ -6,14 +6,15 @@
 
 Inky *Inky::instance = nullptr;
 
-Inky::Inky() : Npc("../data/gfx/inky_1.png", SDL_Point{310, 222}){}
+Inky::Inky() : Npc("../data/gfx/inky_1.png", SDL_Point{310, 222})
+{}
 
 Inky::~Inky()
-{}
+= default;
 
 Inky *Inky::getInstance()
 {
-    if(!instance) {
+    if (!instance) {
         instance = new Inky;
     }
     return instance;
@@ -21,7 +22,7 @@ Inky *Inky::getInstance()
 
 void Inky::deleteInstance()
 {
-    if(instance){
+    if (instance) {
         delete instance;
         instance = nullptr;
     }

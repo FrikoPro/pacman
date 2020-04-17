@@ -17,10 +17,11 @@
 class Screen {
 
 public:
-    static Screen* getInstance();
+    static Screen *getInstance();
+
     static void deleteInstance();
 
-    static SDL_Texture *loadImage(const char* path, int alphaColor);
+    static SDL_Texture *loadImage(const char *path, int alphaColor);
 
     static void drawText(int size, SDL_Color color, const char *text, SDL_Point pos);
 
@@ -28,9 +29,11 @@ public:
 
 private:
     Screen();
+
     ~Screen();
-    static Screen* instance;
-    SDL_Window* window;
+
+    static Screen *instance;
+    SDL_Window *window;
 };
 
 

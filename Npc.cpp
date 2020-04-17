@@ -6,11 +6,11 @@
 #include "GameManager.h"
 
 
-Npc::Npc(const char *path, SDL_Point pos) : GameObject(path, pos)
+Npc::Npc(const char *path, SDL_Point pos) : GameObject(path, pos), goal({138, 37})
 {}
 
 Npc::~Npc()
-{}
+= default;
 
 
 void Npc::move()
@@ -55,7 +55,6 @@ bool Npc::isValidPoint(SDL_Point point)
 
 std::vector<SDL_Point> Npc::findPath(SDL_Point start, SDL_Point dest)
 {
-    count = 0;
     Rails rail;
 
     for (Rails currRail : arrayOfRails) {
@@ -66,7 +65,7 @@ std::vector<SDL_Point> Npc::findPath(SDL_Point start, SDL_Point dest)
     }
 
     std::vector<SDL_Point> stack;
-    std::set<SDL_Point *> alreadyVisted;
+    std::vector<SDL_Point> alreadyVisted;
 
     if (!isValidPoint(start) || !isValidPoint(dest))
         return stack;
@@ -91,21 +90,22 @@ std::vector<SDL_Point> Npc::findPath(SDL_Point start, SDL_Point dest)
 }
 
 
-bool Npc::isPointIn(std::set<SDL_Point *> alreadyVisted, SDL_Point point)
+bool Npc::isPointIn(const std::vector<SDL_Point> &alreadyVisted, SDL_Point point)
 {
-    for (SDL_Point *point2 : alreadyVisted) {
-        if (point2 == point)
+    for (SDL_Point point2 : alreadyVisted) {
+        if (&point2 == point)
             return true;
     }
     return false;
 }
 
 void
-Npc::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &alreadyVisted, SDL_Point current, Rails rail)
+Npc::calculatePath(std::vector<SDL_Point> &stack, std::vector<SDL_Point> &alreadyVisted, SDL_Point current,
+                   const Rails &rail)
 {
 
     stack.emplace_back(current);
-    alreadyVisted.insert(&current);
+    alreadyVisted.emplace_back(current);
 
     if (isPathTo(stack, rail))
         return;
@@ -115,15 +115,9 @@ Npc::calculatePath(std::vector<SDL_Point> &stack, std::set<SDL_Point *> &already
             continue;
         }
 
-        count++;
         calculatePath(stack, alreadyVisted, adjacent, rail);
 
         if (!isPathTo(stack, rail)) {
-            if(count > 10000) {
-                stack.clear();
-                alreadyVisted.clear();
-                return;
-            }
             stack.pop_back();
         } else {
             return;
@@ -205,7 +199,7 @@ void Npc::update()
 void Npc::checkCollision()
 {
     SDL_Rect pacmanRect = Pacman::getInstance()->getRect();
-    if(SDL_HasIntersection(&destRect, &pacmanRect)) {
+    if (SDL_HasIntersection(&destRect, &pacmanRect)) {
         GameManager::getInstance()->setHasCollided();
     }
 }

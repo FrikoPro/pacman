@@ -10,13 +10,8 @@ Pill::Pill(SDL_Point pos) : GameObject("../data/gfx/pille.png", pos)
     objTexture = Screen::loadImage("../data/gfx/pille.png", -1);
 }
 
-Pill::~Pill() {}
-
-SDL_Point Pill::getPos()
-{
-    SDL_Point pos = this->pos;
-    return pos;
-}
+Pill::~Pill()
+= default;
 
 void Pill::update()
 {
@@ -32,7 +27,7 @@ void Pill::update()
 
     SDL_Rect pacmanRect = Pacman::getInstance()->getRect();
 
-    if(SDL_HasIntersection(&destRect, &pacmanRect)) {
+    if (SDL_HasIntersection(&destRect, &pacmanRect)) {
         stillAlive = false;
     }
 }

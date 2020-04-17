@@ -134,7 +134,7 @@ Map::Map()
 }
 
 Map::~Map()
-{}
+= default;
 
 Map *Map::getInstance()
 {
@@ -146,59 +146,6 @@ Map *Map::getInstance()
 
 void Map::initPills()
 {
-
-/*    if (!pills.empty())
-        return;
-
-
-    double initDistance = 0;
-    SDL_Point start = {138, 37};
-
-    for (Rails rail : arrayOfRails) {
-        bool nextRail = false;
-        for (Rails noPillsRail : castleRails) {
-            if (noPillsRail == rail) {
-                nextRail = true;
-                break;
-            }
-        }
-
-        if (nextRail == true)
-            continue;
-        if (rail.start.y == rail.end.y) {
-            if (&rail.start == start) {
-                initDistance += abs(rail.start.x - rail.end.x) + 1;
-                start = rail.end;
-            } else {
-                int spacing = 12;
-                int maxPills = round(initDistance / 15);
-                int distance = initDistance;
-                for (int pill = 0; pill <= maxPills; pill++) {
-                    pills.emplace_back(new Pill({start.x - distance + spacing, start.y + 12}));
-                    spacing += 15;
-                }
-
-                initDistance = abs(rail.start.x - rail.end.x);
-                start = rail.end;
-            }
-        } else if (rail.start.x == rail.end.x) {
-            if (&rail.start == start) {
-                initDistance += abs(rail.start.y - rail.end.y);
-                start = rail.end;
-            } else {
-                int maxPills = round(initDistance / 15);
-                int spacing = 25;
-                int distance = initDistance;
-                for (int pill = 0; pill < maxPills; pill++) {
-                    pills.emplace_back(new Pill({start.x + 12, start.y - distance + spacing}));
-                    spacing += 15;
-                }
-                initDistance = abs(rail.start.y - rail.end.y);
-                start = rail.end;
-            }
-        }
-
-    }*/
     for (Rails &rail : arrayOfRails) {
         bool nextRail = false;
         for (Rails skipRail : skipRails) {
@@ -208,7 +155,7 @@ void Map::initPills()
             }
         }
 
-        if (nextRail == true)
+        if (nextRail)
             continue;
         int spacing = 10;
 
@@ -218,52 +165,21 @@ void Map::initPills()
             for (int pill = 0; pill < maxPills; pill++) {
                 if ((spacing + rail.start.x) > rail.end.x || (rail.start.x + spacing) > (rail.end.x - 14)) {
                     pills.emplace_back(new Pill({rail.end.x, rail.start.y + 10}));
+                    pills.emplace_back(new Pill({rail.end.x + 10, rail.start.y + 10}));
                 } else {
                     pills.emplace_back(new Pill({rail.start.x + spacing, rail.start.y + 10}));
                     spacing += 14;
                 }
             }
         } else if (rail.start.x == rail.end.x) {
+            spacing = 24;
             double distance = rail.end.y - rail.start.y;
-            int maxPills = round(distance / spacing);
-            for (int pill = 0; pill < maxPills; pill++) {
-                if ((spacing + rail.start.y) > rail.end.y || (rail.start.y + spacing) > (rail.end.y - 14))
-                    pills.emplace_back(new Pill({rail.start.x + 10, rail.end.y}));
-                else {
-                    pills.emplace_back(new Pill({rail.start.x + 10, rail.start.y + spacing}));
-                    spacing += 14;
-                }
+            int maxPills = round(distance / 14);
+            for (int pill = 1; pill < maxPills; pill++) {
+                pills.emplace_back(new Pill({rail.start.x + 10, rail.start.y + spacing}));
+                spacing += 14;
             }
         }
-
-        if (&rail.start == SDL_Point{330, 133} && &rail.end == SDL_Point{371, 133}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if (&rail.start == SDL_Point{249, 133} && &rail.end == SDL_Point{290, 133}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if (&rail.start == SDL_Point{166, 380} && &rail.end == SDL_Point{207, 380}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if (&rail.start == SDL_Point{412, 133} && &rail.end == SDL_Point{480, 133}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if (&rail.start == SDL_Point{452, 339} && &rail.end == SDL_Point{480, 339}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if (&rail.start == SDL_Point{330, 421} && &rail.end == SDL_Point{480, 421}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        } else if (&rail.start == SDL_Point{330, 380} && &rail.end == SDL_Point{371, 380}) {
-            pills.emplace_back(new Pill({rail.end.x + 10, rail.end.y + 10}));
-        }
-    }
-
-    int index = 0;
-    for(Pill *pill : pills) {
-        int index2 = 0;
-        for(Pill *pill2 : pills) {
-            SDL_Point pillPos = pill->getPos();
-            if(&pillPos == pill2->getPos() && index != index2) {
-                pills.erase(pills.begin() + index2);
-            }
-            index2++;
-        }
-        index++;
     }
 }
 

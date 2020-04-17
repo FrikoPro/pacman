@@ -37,7 +37,7 @@ GameManager::GameManager() : isRunning(true)
 }
 
 GameManager::~GameManager()
-{}
+= default;
 
 void GameManager::runGame()
 {
@@ -130,10 +130,10 @@ void GameManager::update()
         isRunning = false;
     }
 
-    if(hasCollided) {
+    if (hasCollided) {
         pacmanHp--;
         players.clear();
-        pacman->deleteInstance();
+        Pacman::deleteInstance();
         Blinky::deleteInstance();
         Pinky::deleteInstance();
         Inky::deleteInstance();
@@ -169,10 +169,10 @@ void GameManager::render()
 
     if (!isRunning) {
 
-        if(pills.empty()) {
+        if (pills.empty()) {
             Screen::drawText(40, {0, 255, 0}, "You win!", {280, 210});
         } else {
-        Screen::drawText(40, {255, 0, 0}, "Game over", {280, 210});
+            Screen::drawText(40, {255, 0, 0}, "Game over", {280, 210});
         }
         Screen::drawText(20, {255, 255, 255}, "Press enter to play agian or escape to quit", {100, 260});
     }
@@ -190,7 +190,7 @@ void GameManager::clean()
     Map::deleteInstance();
     players.clear();
     pills.clear();
-    pacman->deleteInstance();
+    Pacman::deleteInstance();
     Blinky::deleteInstance();
     Inky::deleteInstance();
     Pinky::deleteInstance();

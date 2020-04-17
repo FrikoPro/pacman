@@ -23,12 +23,12 @@ void Pacman::deleteInstance()
 
 }
 
-Pacman::Pacman() : pre_direction(STOP), direction(LEFT),
+Pacman::Pacman() : pre_direction(STOP), direction(LEFT), currentRail(nullptr),
                    GameObject("../data/gfx/pacman.png", {330, 339})
 {}
 
 Pacman::~Pacman()
-{}
+= default;
 
 void Pacman::move()
 {
@@ -120,7 +120,7 @@ bool Pacman::checkRail(Direction direction)
             break;
         case STOP:
             for (Rails rail : arrayOfRails) {
-                if(pos.x == rail.start.x && pos.y == rail.start.y ||(
+                if (pos.x == rail.start.x && pos.y == rail.start.y || (
                         pos.x == rail.end.x && pos.y == rail.end.y)) {
                     currentRail = &rail;
                     break;
@@ -207,10 +207,6 @@ Pacman::Direction Pacman::getPreDirection()
 }
 
 
-void Pacman::setPosition(SDL_Point point)
-{
-    this->pos = point;
-}
 
 
 

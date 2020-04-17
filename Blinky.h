@@ -9,22 +9,21 @@
 #include "Pacman.h"
 
 
-
 class Blinky : public Npc {
 
 public:
     static Blinky *getInstance();
+
     static void deleteInstance();
 
-    void move();
+    void move() override;
 
 private:
     Blinky();
-    ~Blinky();
+
+    ~Blinky() override;
 
     static Blinky *instance;
-
-
 
 };
 

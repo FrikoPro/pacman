@@ -10,7 +10,7 @@ Clyde::Clyde() : Npc("../data/gfx/clyde_1.png", SDL_Point{310, 222})
 {}
 
 Clyde::~Clyde()
-{}
+= default;
 
 Clyde *Clyde::getInstance()
 {

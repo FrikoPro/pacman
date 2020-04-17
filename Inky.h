@@ -12,13 +12,15 @@ class Inky : public Npc {
 
 public:
     static Inky *getInstance();
+
     static void deleteInstance();
 
-    void move();
+    void move() override;
 
 private:
     Inky();
-    ~Inky();
+
+    ~Inky() override;
 
     static Inky *instance;
 };

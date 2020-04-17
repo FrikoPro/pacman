@@ -15,19 +15,20 @@ class Rails {
 
 public:
     Rails(SDL_Point start, SDL_Point end);
+
     Rails();
+
     ~Rails();
 
     bool operator==(const Rails &obj1);
+
     bool operator==(const SDL_Point &point);
 
     SDL_Point start;
     SDL_Point end;
 
 
-
 };
-
 
 
 #endif //PACMAN_RAILS_H

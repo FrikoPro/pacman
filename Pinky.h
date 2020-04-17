@@ -8,17 +8,19 @@
 
 #include "Npc.h"
 
-class Pinky : public Npc{
+class Pinky : public Npc {
 
 public:
     static Pinky *getInstance();
+
     static void deleteInstance();
 
-    void move();
+    void move() override;
 
 private:
     Pinky();
-    ~Pinky();
+
+    ~Pinky() override;
 
     static Pinky *instance;
 };

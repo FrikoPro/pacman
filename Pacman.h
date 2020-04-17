@@ -14,25 +14,35 @@ class Pacman : public GameObject {
 public:
 
     static Pacman *getInstance();
+
     static void deleteInstance();
-    void move();
+
+    void move() override;
+
     SDL_Point getPosition();
-    void setPosition(SDL_Point point);
+
     SDL_Rect getRect();
 
-    enum Direction {LEFT, RIGHT, UP, DOWN, STOP};
+    enum Direction {
+        LEFT, RIGHT, UP, DOWN, STOP
+    };
 
     void setDirection(Direction direction);
+
     void setPreDirection(Direction direction);
 
     Direction getDirection();
+
     Direction getPreDirection();
 
     bool checkRail(Direction direction);
 
     void moveLeft();
+
     void moveRight();
+
     void moveDown();
+
     void moveUp();
 
 private:
@@ -43,7 +53,8 @@ private:
     Direction direction;
 
     Pacman();
-    ~Pacman();
+
+    ~Pacman() override;
 
 
 };

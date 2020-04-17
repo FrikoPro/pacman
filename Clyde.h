@@ -11,13 +11,15 @@ class Clyde : public Npc {
 
 public:
     static Clyde *getInstance();
+
     static void deleteInstance();
 
-    void move();
+    void move() override;
 
 private:
     Clyde();
-    ~Clyde();
+
+    ~Clyde() override;
 
     static Clyde *instance;
 

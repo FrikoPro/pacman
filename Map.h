@@ -18,20 +18,27 @@ class Map {
 
 public:
     static Map *getInstance();
+
     static void deleteInstance();
+
     void renderMap();
+
     std::vector<Rails> getRails();
+
     void initPills();
-    std::vector<Pill*> getPills();
+
+    std::vector<Pill *> getPills();
 
 private:
     Map();
+
     ~Map();
+
     static Map *instance;
     SDL_Texture *txMap;
     std::vector<Rails> arrayOfRails;
     std::vector<Rails> skipRails;
-    std::vector<Pill*> pills;
+    std::vector<Pill *> pills;
 
 
 };
