@@ -50,8 +50,8 @@ private:
     static GameManager *instance;
     bool isRunning;
     bool hasCollided = false;
-    Uint32 frameStart{};
-    int frameTime{};
+    Uint32 frameStart;
+    int frameTime;
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 

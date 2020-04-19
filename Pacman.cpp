@@ -120,7 +120,7 @@ bool Pacman::checkRail(Direction direction)
             break;
         case STOP:
             for (Rails rail : arrayOfRails) {
-                if (pos.x == rail.start.x && pos.y == rail.start.y || (
+                if ((pos.x == rail.start.x && pos.y == rail.start.y) || (
                         pos.x == rail.end.x && pos.y == rail.end.y)) {
                     currentRail = &rail;
                     break;

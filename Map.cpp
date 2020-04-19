@@ -166,6 +166,7 @@ void Map::initPills()
                 if ((spacing + rail.start.x) > rail.end.x || (rail.start.x + spacing) > (rail.end.x - 14)) {
                     pills.emplace_back(new Pill({rail.end.x, rail.start.y + 10}));
                     pills.emplace_back(new Pill({rail.end.x + 10, rail.start.y + 10}));
+                    break;
                 } else {
                     pills.emplace_back(new Pill({rail.start.x + spacing, rail.start.y + 10}));
                     spacing += 14;
